@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrea Natalia 💗</title>
+
+  <style>
+    :root{
+      --pink:#ff4d6d;
+      --soft:#fff0f5;
+      --dark:#111;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      background: linear-gradient(to bottom, var(--soft), #ffffff);
+      color:#222;
+      text-align:center;
+      overflow-x:hidden;
+    }
+
+    /* ====== HERO ====== */
+    .hero{
+      position:relative;
+      min-height: 82vh;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding: 70px 18px 55px;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.15), rgba(0,0,0,0.0)),
+        url("fotos/portada.jpg");
+      background-size:cover;
+      background-position:center;
+      transform: scale(1.02);
+      filter: saturate(1.05);
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background: radial-gradient(circle at 20% 15%, rgba(255,77,109,0.35), transparent 45%),
+                  radial-gradient(circle at 80% 10%, rgba(255,255,255,0.20), transparent 40%),
+                  radial-gradient(circle at 60% 70%, rgba(255,77,109,0.25), transparent 55%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      width:min(980px, 100%);
+      text-align:left;
+      color:#fff;
+      padding: 22px 18px;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    .hero h1{
+      margin: 14px 0 8px;
+      font-size: clamp(2.0rem, 4vw, 3.1rem);
+      line-height: 1.08;
+      letter-spacing: 0.2px;
+    }
+
+    .hero p{
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.92;
+      max-width: 62ch;
+    }
+
+    .hero-actions{
+      margin-top: 18px;
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      padding: 12px 18px;
+      border: none;
+      border-radius: 999px;
+      background: var(--pink);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.28);
+    }
+
+    .btn:hover{transform: translateY(-2px); filter: brightness(0.98)}
+
+    .btn.secondary{
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ====== COUNTER ====== */
+    .counter-box{
+      margin-top: 18px;
+      display:grid;
+      gap: 10px;
+      width:min(760px, 100%);
+      padding: 16px 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+    }
+
+    .counter-box h2{
+      margin:0;
+      font-size: 1.15rem;
+      font-weight: 650;
+      opacity: 0.98;
+    }
+
+    .counter{
+      font-size: 1.08rem;
+      opacity: 0.95;
+    }
+
+    /* ====== CONTENT ====== */
+    .container{
+      max-width: 1100px;
+      margin: auto;
+      padding: 46px 18px;
+    }
+
+    .section-title{
+      font-size: 2.0rem;
+      margin: 0 0 8px;
+    }
+
+    .section-subtitle{
+      margin: 0 0 26px;
+      opacity: 0.72;
+    }
+
+    /* ====== POLAROIDS ====== */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .photo{
+      background: white;
+      padding: 10px;
+      border-radius: 20px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.12);
+      transform: rotate(calc(-2deg + 4deg * var(--rand)));
+      transition: 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo:hover{
+      transform: scale(1.05) rotate(0deg);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+
+    .photo img{
+      width:100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 16px;
+      display:block;
+    }
+
+    .photo .cap{
+      padding: 10px 6px 2px;
+      font-size: 0.95rem;
+      opacity: 0.8;
+      text-align:left;
+    }
+
+    /* ====== FEATURE STRIP ====== */
+    .strip{
+      margin-top: 46px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      background: rgba(255, 105, 180, 0.08);
+      border: 1px solid rgba(255, 105, 180, 0.16);
+      border-radius: 22px;
+      padding: 18px 16px;
+      text-align:left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .card b{display:block; font-size: 1.05rem; margin-bottom: 6px;}
+    .card span{opacity:0.8}
+
+    @media (max-width: 900px){
+      .strip{grid-template-columns: 1fr;}
+    }
+
+    /* ====== LETTER ====== */
+    .letter{
+      margin-top: 55px;
+      padding: 34px 22px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 14px 45px rgba(0,0,0,0.08);
+      text-align:left;
+      max-width: 920px;
+      margin-left:auto;
+      margin-right:auto;
+      line-height: 1.55;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .letter::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,77,109,0.10), transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(255,77,109,0.08), transparent 45%),
+        radial-gradient(circle at 40% 90%, rgba(255,77,109,0.06), transparent 50%);
+      pointer-events:none;
+    }
+
+    .letter > *{position:relative}
+
+    .letter h2{
+      text-align:center;
+      margin: 0 0 12px;
+      font-size: 1.65rem;
+    }
+
+    .letter p{
+      font-size: 1.06rem;
+      opacity: 0.92;
+      white-space: pre-line;
+      margin:0;
+    }
+
+    /* ====== QUESTION ====== */
+    .final{
+      margin-top: 50px;
+      padding: 38px 18px;
+      border-radius: 26px;
+      background: rgba(255, 105, 180, 0.08);
+      border: 1px solid rgba(255, 105, 180, 0.16);
+      max-width: 920px;
+      margin-left:auto;
+      margin-right:auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+
+    .final h2{
+      margin:0;
+      font-size: 1.75rem;
+    }
+
+    .final p{
+      margin: 10px 0 0;
+      opacity: 0.82;
+      font-size: 1.05rem;
+    }
+
+    .final .buttons{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ====== MODAL ====== */
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.58);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .modal-content{
+      background: white;
+      padding: 30px 22px;
+      border-radius: 26px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+      position: relative;
+      text-align:center;
+      overflow:hidden;
+    }
+
+    .modal-content::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,77,109,0.14), transparent 45%),
+        radial-gradient(circle at 80% 25%, rgba(255,77,109,0.10), transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(255,77,109,0.08), transparent 50%);
+      pointer-events:none;
+    }
+
+    .modal-content > *{position:relative}
+
+    .modal-content h3{
+      margin: 0 0 10px;
+      font-size: 1.55rem;
+    }
+
+    .close{
+      position:absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 1.25rem;
+      cursor: pointer;
+      opacity: 0.7;
+      user-select:none;
+    }
+
+    .close:hover{opacity: 1;}
+
+    /* ====== FLOATING HEARTS BG ====== */
+    .bg-heart{
+      position: fixed;
+      bottom: -40px;
+      font-size: 18px;
+      opacity: 0.22;
+      animation: floatBg 12s linear forwards;
+      pointer-events:none;
+      z-index: 0;
+      filter: blur(0.2px);
+    }
+
+    @keyframes floatBg{
+      0%{ transform: translateY(0) translateX(0) scale(1); }
+      100%{ transform: translateY(-120vh) translateX(40px) scale(1.8); }
+    }
+
+    /* ====== YES HEARTS ====== */
+    .heart{
+      position: fixed;
+      font-size: 18px;
+      animation: floatUp 2.6s ease forwards;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp{
+      0%{ transform: translateY(0) scale(1); opacity: 1; }
+      100%{ transform: translateY(-140px) scale(1.6); opacity: 0; }
+    }
+
+    footer{
+      margin-top: 70px;
+      padding: 25px;
+      font-size: 0.95rem;
+      opacity: 0.65;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .photo, .btn, .bg-heart, .heart{animation:none !important; transition:none !important;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO (PORTADA) -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="badge">🌊 Playa + tú = mi lugar favorito</div>
+
+      <h1>Andrea Natalia 💗</h1>
+      <p>
+        Desde el <b>26 de septiembre de 2025</b> mi vida tiene un "antes" y un "contigo".
+      </p>
+
+      <div class="counter-box">
+        <h2>⏳ Tiempo juntos</h2>
+        <div class="counter" id="counter">Cargando...</div>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn" onclick="toggleMusic()">🎶 Música</button>
+        <button class="btn secondary" onclick="openYouTube()">▶ Abrir canción en YouTube</button>
+        <button class="btn secondary" onclick="scrollToMemories()">📸 Ver fotos</button>
+      </div>
+
+      <!-- Música opcional si tú agregas musica.mp3 -->
+      <audio id="music" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- MEMORIES -->
+    <h2 class="section-title" id="memories">Nuestros Momentos 📸</h2>
+    <p class="section-subtitle">15 fotitos que guardo en el corazón</p>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div class="strip">
+      <div class="card">
+        <b>✨ Lo que más amo</b>
+        <span>Tu sonrisa, tu risa, tus ojos cafés… y tus camanances 🥹</span>
+      </div>
+      <div class="card">
+        <b>🫶 Lo que más valoro</b>
+        <span>Que incluso con diferencias, seguimos eligiéndonos.</span>
+      </div>
+      <div class="card">
+        <b>💗 Lo que más deseo</b>
+        <span>Que estés bien… y que sigamos construyendo lo nuestro.</span>
+      </div>
+    </div>
+
+    <!-- LETTER -->
+    <section class="letter">
+      <h2>💌 Mi carta para ti</h2>
+      <p>
+Durante estos 140 días en los que me has acompañado, no hay 1 solo día en los que tenga algún arrepentimiento, has sido lo mejor que me ha pasado este 2025, y sin duda iniciar mi 2026 contigo es la bendición más grande que Dios me dio.
+
+Hemos tenido nuestras diferencias, y aunque aún me cueste dejar mi orgullo de lado en ellas, solo quiero que estés bien y ya.
+
+Amo tu sonrisa, tu risa, adoro tus ojos cafés, amo tus camanances, y sin duda alguna te amo a ti Andrea Natalia, ¿Quieres ser mi san Valentín este 14 de febrero?
+      </p>
+    </section>
+
+    <!-- QUESTION -->
+    <section class="final">
+      <h2>💗 ¿Quieres ser mi San Valentín?</h2>
+      <p>Presiona el botón… y verás lo que siento 🥹</p>
+
+      <div class="buttons">
+        <button class="btn" onclick="sayYes()">Sí 💗</button>
+        <button class="btn secondary" onclick="sayNo()">No 😔</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Hecho con amor, por mí para ti 💕
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="close" onclick="closeModal()">✖</div>
+      <h3>AAAAA 😭💗</h3>
+      <p style="font-size:1.06rem; opacity:0.92; margin:0;">
+        Entonces oficialmente…
+        <br><br>
+        <b>TE AMO</b>
+        <br><br>
+        Gracias por ser mi persona favorita 🥹✨
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // ==========================
+    // 1) GALERÍA (15 fotos)
+    // ==========================
+    const gallery = document.getElementById("gallery");
+
+    // IMPORTANTE:
+    // - portada.jpg debe ser la foto de la playa
+    // - y las otras 15 fotos deben ser: fotos/1.jpg ... fotos/15.jpg
+
+    const captions = [
+      "Nosotros 🖤",
+      "Mi lugar favorito",
+      "Esa mirada 😌",
+      "Un pedacito de felicidad",
+      "Siempre tú",
+      "Este día fue especial",
+      "Mi persona",
+      "Quédate",
+      "Aquí me siento en casa",
+      "De mis favoritas",
+      "Una prueba de amor",
+      "Tú y yo",
+      "Lo nuestro",
+      "Gracias por existir",
+      "Te amo"
+    ];
+
+    for (let i = 1; i <= 15; i++) {
+      const div = document.createElement("div");
+      div.classList.add("photo");
+      div.style.setProperty("--rand", Math.random());
+      div.innerHTML = `
+        <img src="fotos/${i}.jpg" alt="foto ${i}">
+        <div class="cap">${captions[i-1] || "💗"}</div>
+      `;
+      gallery.appendChild(div);
+    }
+
+    // ==========================
+    // 2) CONTADOR desde Sept 26 2025
+    // ==========================
+    const startDate = new Date("2025-09-26T00:00:00");
+
+    function updateCounter() {
+      const now = new Date();
+      let diff = now - startDate;
+
+      if (diff < 0) {
+        document.getElementById("counter").innerText = "Aún no empieza 😅";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff -= minutes * (1000 * 60);
+
+      const seconds = Math.floor(diff / 1000);
+
+      document.getElementById("counter").innerText =
+        `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos 💗`;
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // ==========================
+    // 3) MÚSICA
+    // ==========================
+    const music = document.getElementById("music");
+    let playing = false;
+
+    function toggleMusic() {
+      if (!playing) {
+        music.play().catch(() => {
+          alert("Si no tienes musica.mp3, usa el botón de YouTube 😅");
+        });
+        playing = true;
+      } else {
+        music.pause();
+        playing = false;
+      }
+    }
+
+    function openYouTube() {
+      window.open("https://www.youtube.com/watch?v=JZiZgbrY0EI", "_blank");
+    }
+
+    function scrollToMemories(){
+      document.getElementById("memories").scrollIntoView({behavior:"smooth"});
+    }
+
+    // ==========================
+    // 4) BOTONES Sí / No
+    // ==========================
+    function sayYes() {
+      openModal();
+      launchHearts();
+    }
+
+    function sayNo() {
+      alert("No acepto esa respuesta 😤💔 (es broma jaja, pero sí acepto…)");
+    }
+
+    // ==========================
+    // 5) MODAL
+    // ==========================
+    function openModal() {
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    document.getElementById("modal").addEventListener("click", (e) => {
+      if (e.target.id === "modal") closeModal();
+    });
+
+    // ==========================
+    // 6) CORAZONES cuando dice Sí
+    // ==========================
+    function launchHearts() {
+      for (let i = 0; i < 28; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerText = "💗";
+
+          heart.style.left = Math.random() * window.innerWidth + "px";
+          heart.style.bottom = "0px";
+          heart.style.fontSize = (16 + Math.random() * 26) + "px";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => heart.remove(), 2600);
+        }, i * 80);
+      }
+    }
+
+    // ==========================
+    // 7) CORAZONES DE FONDO (suaves)
+    // ==========================
+    function spawnBackgroundHearts(){
+      const heart = document.createElement("div");
+      heart.classList.add("bg-heart");
+      heart.innerText = Math.random() > 0.5 ? "💗" : "💕";
+
+      const size = 14 + Math.random() * 22;
+      heart.style.fontSize = size + "px";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (10 + Math.random() * 8) + "s";
+      heart.style.opacity = (0.12 + Math.random() * 0.18);
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 18000);
+    }
+
+    setInterval(spawnBackgroundHearts, 650);
+  </script>
+</body>
+</html>
